@@ -1,0 +1,7 @@
+body{
+    font-family: 'Times New Roman';
+}
+
+.bg-default{
+    background: linear-gradient(wheat,rgba(11, 11, 32, 0.807));
+}
