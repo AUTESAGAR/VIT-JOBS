@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['employer'])){
+    if(isset($_SESSION['employer_user'])){
         header("Location:home.php");
     }
 ?>
@@ -21,12 +21,9 @@
     <?php include_once("./components/header.php"); ?>
 
     <form action="query.php" method="post" class="m-auto border border-info border-5 my-2 py-2 w-50 px-5 py-5">
-        <h1 class="text-center fs-2 fw-bold bg-info">
-           Employer Login
-        </h1>
-        <input type="text" name="email" id="" class="form-control border border-dark my-3" placeholder="Enter Your Email">
-        <input type="text" name="pwd" id="" class="form-control border border-dark my-3" placeholder="Enter Your Password">        
-
+        <h1 class="text-center fs-2 fw-bold bg-info">Employer Login</h1>
+        <input type="text" name="uname" id="" class="form-control border border-dark my-3" placeholder="Enter Your Username">
+        <input type="text" name="pwd" id="" class="form-control border border-dark my-3" placeholder="Enter Your Password">
         <div class="fs-5 fw-bold row text-center">
             <div class="col-6">
                 <a href="reg.php">Create Account</a>

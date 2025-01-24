@@ -1,11 +1,11 @@
 <?php 
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
     session_start();
-    if(!$_SESSION['email']){
+    if(!$_SESSION['uname']){
         header("Location:login.php");
     }
-    $email = $_SESSION['email'];
-    $query = "SELECT * FROM `users` WHERE `email`='$email'";
+    $uname = $_SESSION['uname'];
+    $query = "SELECT * FROM `users` WHERE `uname`='$uname'";
     $run = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($run);
 ?>
@@ -29,8 +29,7 @@
             <input type="hidden" name="id" value="<?php echo $data['id']; ?>" id="" class="form-control border border-dark my-2">
             <input type="text" name="name" value="<?php echo $data['name']; ?>" id="" class="form-control border border-dark my-2">
             <input type="text" name="email" value="<?php echo $data['email']; ?>" id="" class="form-control border border-dark my-2">
-            <input type="text" name="mobile" value="<?php echo $data['mobile']; ?>" id="" class="form-control border border-dark my-2">
-            <input type="text" name="adr" value="<?php echo $data['adr']; ?>" id="" class="form-control border border-dark my-2">
+            <input type="text" name="mobile" value="<?php echo $data['mobile']; ?>" id="" class="form-control border border-dark my-2">            
             <div class="text-center my-2">
                 <input type="submit" class="btn btn-success" value="Edit_Profile" name="edit_profile">
             </div>

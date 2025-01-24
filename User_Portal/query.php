@@ -1,31 +1,31 @@
 <?php
     session_start();
-    error_reporting(0);
+    // error_reporting(0);
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
     
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
         
-    require 'PHPMailer/src/Exception.php';
-    require 'PHPMailer/src/PHPMailer.php';
-    require 'PHPMailer/src/SMTP.php';    
+    require '../PHPMailer/src/Exception.php';
+    require '../PHPMailer/src/PHPMailer.php';
+    require '../PHPMailer/src/SMTP.php';
 
-    if(isset($_POST["reg"]) && $_POST['name'] && $_POST['email'] && $_POST['pwd'] && $_POST['mobile'] && $_POST['adr'] && $_FILES['profile'] )
+    if(isset($_POST["reg"]) && $_POST['name'] && $_POST['uname'] && $_POST['pwd'] && $_POST['email'] && $_POST['mobile'] && $_FILES['profile'])
     {
         $name = $_POST['name'];
-        $email = $_POST['email'];
+        $uname = $_POST['uname'];
         $pwd = $_POST['pwd'];
+        $email = $_POST['email'];
         $mobile = $_POST['mobile'];
-        $adr = $_POST['adr'];
-        $profile = $_FILES['profile']['name'];
-        $tmp = $_FILES['profile']['tmp_name'];
-        $folder ="./uploads/".$profile;
+        $profile=$_FILES['profile']['name'];
+        $tmp =   $_FILES['profile']['tmp_name'];
+        $folder ="../uploads/".$profile;
         move_uploaded_file($tmp,$folder);
-        $query = "INSERT INTO `users` VALUES('','$name','$email','$pwd','$mobile','$folder','$adr')";
+        $query = "INSERT INTO `users` VALUES('','$name','$uname','$pwd','$email','$mobile','$folder','','')";
         $run = mysqli_query($conn,$query);
         if($run){
-            echo "<script> alert('Your Account Has Been Created');</script>";
+            echo "Your Account Has Been Created";
             header("refresh:1;url=login.php");
         }
         else{
@@ -33,14 +33,14 @@
         }
     }    
     
-    else if(isset($_POST["login"]) && $_POST['email'] && $_POST['pwd']){
-        $email = $_POST['email'];
+    else if(isset($_POST["login"]) && $_POST['uname'] && $_POST['pwd']){
+        $uname = $_POST['uname'];
         $pwd = $_POST['pwd'];
-        $query = "SELECT * FROM `users` WHERE email='$email' AND pwd='$pwd'";
+        $query = "SELECT * FROM `users` WHERE `uname`='$uname' AND `pwd`='$pwd'";
         $run = mysqli_query($conn,$query);
         $data = mysqli_fetch_assoc($run);
         if($run){
-            $_SESSION['email'] = $data['email'];
+            $_SESSION['uname'] = $data['uname'];
             header("Location:home.php");
         }
         else{
@@ -52,9 +52,8 @@
         $id = $_POST['id'];
         $name = $_POST['name'];
         $email = $_POST['email'];
-        $mobile = $_POST['mobile'];
-        $adr = $_POST['adr'];        
-        $query = "UPDATE `users` SET `name`='$name',`email`='$email',`mobile`='$mobile',`adr`='$adr' WHERE `id`='$id'";
+        $mobile = $_POST['mobile'];        
+        $query = "UPDATE `users` SET `name`='$name',`email`='$email',`mobile`='$mobile' WHERE `id`='$id'" ;
         $run = mysqli_query($conn,$query);
         if($run){
             header("Location:home.php");
@@ -105,7 +104,7 @@
             $query1 = "UPDATE `users` SET `otp`='$otp' WHERE `email`='$email'";
             $run1 = mysqli_query($conn,$query1);
             if($run1){
-                echo "<script>window.location.replace('http://localhost/4PM%20PHP/VIT%20JOBS/change_password.php')</script>";
+                echo "<script>window.location.replace('http://localhost/4PM%20PHP/VIT%20JOBS/User_Portal/change_password.php')</script>";
             }
         }
         else{            
@@ -128,24 +127,19 @@
         }
     }
 
-    // Appplication Submitssion
-    if(isset($_POST['submit_application']) && $_POST['full_name'] && $_POST['email'] && $_POST['mobile'] && $_POST['join_id'] && $_POST['apply_for'] && $_FILES['resume']['name'])
-    {
-        $full_name = $_POST['full_name'];
+    // Resume Submission
+    if(isset($_POST['resume_submit']) && $_POST['join_id'] && $_POST['name'] && $_POST['email']  && $_POST['mobile'] && $_POST['apply_for'] && $_FILES['resume']['name'])
+    {        
+        $join_id = $_POST['join_id'];
+        $name = $_POST['name'];
         $email = $_POST['email'];
         $mobile = $_POST['mobile'];
-        $join_id = $_POST['join_id'];
         $apply_for = $_POST['apply_for'];
         $resume_name = $_FILES['resume']['name'];
         $tmp = $_FILES['resume']['tmp_name'];
-        $resume = "./uploads/resume/".$resume_name;
-        move_uploaded_file($tmp,$resume);
-        $gender = $_POST['gender'];
-        $date_of_joining = $_POST['date_of_joining'];
-        $date_of_leaving = $_POST['date_of_leaving'];
-        $experience_year = $_POST['experience_year'];
-        $add_info = $_POST['add_info'];
-        $query="INSERT INTO `user_application` VALUES('','$full_name','$email','$mobile','$apply_for','$resume','$gender','$date_of_joining','$date_of_leaving','$experience_year','$add_info','$join_id')";
+        $folder = "../uploads/resume/".$resume_name;
+        move_uploaded_file($tmp,$folder);
+        $query="INSERT INTO `cv` VALUES('','$name','$email','$mobile','$apply_for','$folder','$join_id')";
         $run = mysqli_query($conn,$query);
         if($run){
             header("Location:Home.php");
@@ -153,7 +147,7 @@
     }
 
     else if(isset($_GET["logout"])){
-        session_destroy();        
+        session_destroy();
         header("Location:login.php");
     }
 
@@ -166,9 +160,5 @@
             session_destroy();
             header("refresh:3,url=reg.php");
         }
-    }
-    
-    else{
-        echo "All Fields Are Required";
     }
 ?>

@@ -16,9 +16,8 @@
         $uname =$_POST['uname'];
         $pwd =$_POST['pwd'];
         $mobile =$_POST['mobile'];
-        $email =$_POST['email'];
-        $adr =$_POST['adr'];
-        $query = "INSERT INTO `employer` VALUES('','$name','$uname','$pwd','$mobile','$email','$adr')";
+        $email =$_POST['email'];        
+        $query = "INSERT INTO `employer` VALUES('','$name','$uname','$pwd','$mobile','$email')";
         $run = mysqli_query($conn,$query);
         if($run){
             echo "<script> alert('Your Account Has Been Created');</script>";
@@ -29,58 +28,30 @@
         }
     }    
     
-    else if(isset($_POST["employer_login"]) && $_POST['email'] && $_POST['pwd']){
-        $email = $_POST['email'];
+    else if(isset($_POST["employer_login"]) && $_POST['uname'] && $_POST['pwd']){
+        $uname = $_POST['uname'];
         $pwd = $_POST['pwd'];
-        $query = "SELECT * FROM `employer` WHERE email='$email' OR uname='$email' AND pwd='$pwd'";
+        $query = "SELECT * FROM `employer` WHERE uname='$uname' AND pwd='$pwd'";
         $run = mysqli_query($conn,$query);
         $data = mysqli_fetch_assoc($run);
         if($run){
-            $_SESSION['employer'] = $data['uname'];
+            $_SESSION['employer_user'] = $data['uname'];
             header("Location:home.php");
         }
         else{
             echo "<script> alert('Enter Valid Credentials');</script>";
         }
     }
-
-    else if(isset($_POST["edit_profile"])){
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $mobile = $_POST['mobile'];
-        $adr = $_POST['adr'];        
-        $query = "UPDATE `users` SET `name`='$name',`email`='$email',`mobile`='$mobile',`adr`='$adr' WHERE `id`='$id'";
-        $run = mysqli_query($conn,$query);
-        if($run){
-            header("Location:home.php");
-        }
-    }
-
-    else if(isset($_POST["change_profile"])){
-        $id = $_POST['id'];
-        $photo = $_FILES['photo']['name'];
-        $tmp = $_FILES['photo']['tmp_name'];
-        $folder = "./uploads/".$photo;
-        move_uploaded_file($tmp,$folder);
-        $query = "UPDATE `users` SET `photo`='$folder' WHERE `id`='$id'";
-        $run = mysqli_query($conn,$query);
-        if($run){
-            header("Location:home.php");
-        }
-    }
-    
+        
     else if(isset($_POST["send_otp"])){
         $email = $_POST['email'];
         $query = "SELECT * FROM users WHERE `email`='$email'";
         $run = mysqli_query($conn,$query);
         $data = mysqli_fetch_assoc($run);
-        if($email===$data['email']){
-            
+        if($email===$data['email']){            
             $text = "123456789009876543212";
             $random = str_shuffle($text);
             $otp = substr($random,0,6);
-
             $mail = new PHPMailer(true);
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
@@ -109,6 +80,39 @@
             header("refresh:1,url=login.php");
         }
     }
+    
+
+    else if(isset($_POST["offer_latter"])){
+            $employer_name = $_POST['employer_name'];
+            $employer_mobile = $_POST['employer_mobile'];
+            $employer_email = $_POST['employer_email'];
+
+            $email = $_POST['employee_email'];
+            $name = $_POST['employee_name'];
+            $mail = new PHPMailer(true);
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'autesagar56@gmail.com';
+            $mail->Password   = 'fuyqtyskngaojmao';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = 465;
+            $mail->setFrom('autesagar56@gmail.com', 'Employer');
+            $mail->addAddress($email, $name);
+            $mail->addAttachment('./static/PHP_Certificate.jpg', 'VIT_JOBS.jpg');
+            $mail->isHTML(true);
+            $mail->Subject = 'Welcome to VIT ( Inteview Call Letter )';
+            $mail->Body    = '<font size="5px">'.$employer_name.'</font> <br />
+                              <font size="5px">'.$employer_mobile.'</font> <br />
+                              <font size="5px">'.$employer_email.'</font> <br />';
+            $mail->send();
+            echo "<script>window.location.replace('http://localhost/4PM%20PHP/VIT%20JOBS/Employer/home.php')</script>";
+        }
+        else{            
+            echo "<script>alert('Enter Valid Email')</script>";
+            header("refresh:1,url=login.php");
+        }
 
     if(isset($_POST['change_password']) && $_POST['otp'] && $_POST['pwd'] && $_POST['c_pwd']){
         $otp = $_POST['otp'];
@@ -148,9 +152,9 @@
         }
     }
 
-    else if(isset($_GET["logout"])){
+    else if(isset($_GET["employer_user"])){
         session_destroy();        
-        header("Location:login.php");
+        header("Location:index.php");
     }
 
     else if(isset($_GET["delete"])){

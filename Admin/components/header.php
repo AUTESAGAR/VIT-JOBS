@@ -14,14 +14,14 @@
         <a class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="ManageApplication.php">Resume</a>
       </div>
     </div>
-    <?php if($_SESSION['uname']) { ?>
+    <?php if($_SESSION['admin_uname']) { ?>
       <div class="dropdown px-3">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <?php echo $_SESSION['uname']; ?>
+          <?php echo $_SESSION['admin_uname']; ?>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">          
           <form action="query.php" method="post">
-            <input type="hidden" name="logout" value="<?php echo $_SESSION['uname']; ?>">
+            <input type="hidden" name="logout" value="<?php echo $_SESSION['admin_uname']; ?>">
             <li><input type="submit" class="dropdown-item" value="Logout"></li>
           </form>
         </ul>

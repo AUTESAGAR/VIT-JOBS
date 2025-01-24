@@ -1,11 +1,12 @@
 <?php 
     session_start();
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
-    if(!isset($_SESSION['employer'])){
+    if(!isset($_SESSION['employer_user'])){
         header("Location:index.php");
-    }
-    $query = "SELECT * FROM `post` WHERE `title`='PHP Fullstack'";
-    $run = mysqli_query($conn,$query);
+    }          
+    $q = "SELECT * FROM `employer` WHERE `uname`='$_SESSION[employer_user]'";
+    $r = mysqli_query($conn,$q);
+    $d = mysqli_fetch_assoc($r);    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,32 +36,35 @@
         }
         $p_p_p = 3;
         $start = ($c_p - 1) * $p_p_p;
-        // $query = "SELECT * FROM `user_application` WHERE `full_name`='Sagar Sajan Aute' LIMIT $start, $p_p_p ";
-        $query = "SELECT * FROM `user_application` WHERE `full_name`='Sagar Sajan Aute' LIMIT $start, $p_p_p ";
+        $query = "SELECT * FROM `cv`";
         $result = mysqli_query($conn,$query);
         if (mysqli_num_rows($result) > 0){
         while ($data = mysqli_fetch_assoc($result)) { 
-    ?>
-            <tr class="border border-info">
-                <td><?php echo $data['full_name']; ?></td>
-                <td><a class="btn btn-success" href="<?php echo "../".$data['resume']; ?>" download>Download CV</a></td>
-                <td><?php echo $data['apply_for']; ?></td>
-                <td><a href="query.php?id=<?php echo $data['id']; ?>" class="fs-2 text-success"><i class="fa-solid fa-pen-to-square"></i></i></a></td>
-                <td>
-                    <form action="query.php" method="post">
-                        <input type="hidden" name="delete" value="<?php echo $data['id']; ?>">
-                        <button type="submit" class="fs-2 text-danger bg-wheat" style="border:2px solid wheat;background:wheat;">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            <?php } } else {  ?> 
-                <tr class="border border-info">
-                    <td colspan="6"><?php echo "No results found."; ?></td>
-                </tr>    
-            <?php } ?>                    
-        </table>
+    ?>  
+        <hr>
+        <div class="text-center ws-5 row">
+            <span class="col-2"><?php echo $data['name']; ?></span>
+            <span class="col-2"><?php echo $data['mobile']; ?></span>
+            <span class="col-2"><?php echo $data['email']; ?></span>
+            <span class="col-2"><a class="btn btn-success" href="<?php echo $data['cv']; ?>" download>Download CV</a></span>
+            <span class="col-2"><?php echo $data['apply_for']; ?></span>
+            
+            <span class="col-2">
+                <form action="query.php" method="post">
+                    <input type="text" name="employer_name" id="" value="<?php echo $d['uname'] ?>">
+                    <input type="text" name="employer_mobile" id="" value="<?php echo $d['mobile'] ?>">
+                    <input type="text" name="employer_email" id="" value="<?php echo $d['email'] ?>">
+                    <input type="text" name="employee_name" id="" value="<?php echo $data['name'] ?>">
+                    <input type="text" name="employee_email" id="" value="<?php echo $data['email'] ?>">
+                    <input type="submit" name="offer_latter" value="Send Interview Latter" class="btn btn-success" />
+                </form>
+            </span>
+        </div>
+        <hr>
+        <?php } } else {  ?>
+            <?php echo "No results found."; ?>
+        <?php } ?>
+
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4 m-auto mx-5 px-5">

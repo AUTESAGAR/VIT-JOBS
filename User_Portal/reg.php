@@ -21,34 +21,34 @@
 
 <body>
     <?php include_once("./components/header.php"); ?>
-    <div class="row">
-        <div class="col-5 m-auto border border-5 my-2 py-2">
-            <img src="./static/logo/logo.png" alt="Logo" height="200px" class="rounded border mx-5">
-        </div>
-        <div class="col-5 m-auto border border-5 my-2 py-2">
+    <div class="row m-auto">
+        <div class="col-2 text-center border p-2 m-auto">
+            <img src="./static/logo/job.jpg" alt="" height="100px">
+            <br><br><br><br><br><br>
+            <img src="./static/logo/job.jpg" alt="" height="100px">
+        </div>        
+        <div class="col-5 m-auto border border-5 my-2 p-4 bg-secondary w-50">
             <form action="query.php" method="post" enctype="multipart/form-data">
                 <h1 class="text-center fs-2 fw-bold bg-warning">
                     User Registration Form
                 </h1>
-                <input type="text" name="name" id="" class="form-control border border-dark my-2" placeholder="Enter Your Name">
-                <input type="text" name="email" id="" class="form-control border border-dark my-2" placeholder="Enter Your Email">
-                <input type="text" name="pwd" id="" class="form-control border border-dark my-2" placeholder="Enter Your Password">
-                <input type="text" name="mobile" id="" class="form-control border border-dark my-2" placeholder="Enter Your Mobile">
-                <input type="file" name="profile" id="" class="form-control border border-dark my-2">
-                <div class="form-floating">
-                    <textarea class="form-control border border-dark my-2" name="adr" placeholder="Leave a Address here" id="floatingTextarea"></textarea>
-                    <label for="floatingTextarea">Address</label>
-                </div>
-                <div class="fs-5 fw-bold text-end px-2">
-                    <a href="login.php">User Login</a>
-                </div>
+                <input type="text" name="name" class="form-control border border-dark my-2" placeholder="Enter Your Name">
+                <input type="text" name="uname" class="form-control border border-dark my-2" placeholder="Enter Your Uname">
+                <input type="text" name="pwd" class="form-control border border-dark my-2" placeholder="Enter Your Password">
+                <input type="text" name="email" class="form-control border border-dark my-2" placeholder="Enter Your Email">
+                <input type="text" name="mobile" class="form-control border border-dark my-2" placeholder="Enter Your Mobile">
+                <input type="file" name="profile" class="form-control border border-dark my-2">
                 <div class="text-center my-2">
                     <input type="submit" class="btn btn-success" value="Create Account" name="reg">
                 </div>
             </form>
         </div>
+        <div class="col-2 text-center border p-2 m-auto">
+            <img src="./static\logo\job.jpg" alt="" height="100px">
+            <br><br><br><br><br><br>
+            <img src="./static\logo\job.jpg" alt="" height="100px">
+        </div>
     </div>
-
 
     <?php include_once("./components/footer.php"); ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

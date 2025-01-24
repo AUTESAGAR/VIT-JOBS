@@ -9,7 +9,7 @@
         $run = mysqli_query($conn,$query);
         $data = mysqli_fetch_assoc($run);
         if($run){
-            $_SESSION['uname'] = $data['uname'];
+            $_SESSION['admin_uname'] = $data['uname'];
             header("Location:home.php");
         }
         else{
@@ -23,9 +23,9 @@
         $location = $_POST["location"];
         $banner = $_FILES["banner"]['name'];
         $tmp = $_FILES["banner"]['tmp_name'];
-        $folder = "../uploads/".$banner;
+        $folder = "../uploads/job_post/".$banner;
         move_uploaded_file($tmp,$folder);
-        $query = "INSERT INTO `post` VALUES('','$title','$description','$folder','$location')";
+        $query = "INSERT INTO `post` VALUES('','$title','$description','$location','$folder','')";
         $run = mysqli_query($conn,$query);
         if($run){
             header("Location:home.php");

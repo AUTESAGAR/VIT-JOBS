@@ -1,11 +1,11 @@
 <?php 
     session_start();
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
-    if(!$_SESSION['email']){
+    if(!$_SESSION['uname']){
         header("Location:login.php");
     }
-    $email = $_SESSION['email'];
-    $query = "SELECT * FROM `users` WHERE `email`='$email'";
+    $uname = $_SESSION['uname'];
+    $query = "SELECT * FROM `users` WHERE `uname`='$uname'";
     $run = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($run);
 ?>
@@ -41,7 +41,7 @@
         <div class="row border border-3 border-secondary m-auto">
             <div class="my-2 col-3">
                 <a href="singlePage.php" class="text-dark text-decoration-none">
-                    <img src="<?php echo trim($post_data['banner'],"./"); ?>" alt="banner" height="150px">
+                    <img src="<?php echo $post_data['banner']; ?>" alt="banner" height="150px">
                 </a>
             </div>
             <div class="col-5">

@@ -20,18 +20,17 @@
 </head>
 <body>
     <?php include_once("./components/header.php"); ?>
-    <div class="row">
-        <div class="col-5 m-auto border border-5 my-2 py-2">
-            <img src="./static/logo/logo.png" alt="Logo" height="200px" class="rounded border mx-5">            
+    <div class="row m-auto">
+        <div class="col-2 m-auto text-center">
+            <img src="./static/logo/job.jpg" alt="Logo" height="100px" class="rounded border mx-5">            
         </div>
-        <div class="col-5 m-auto border border-5 my-2 py-2">
+        <div class="col-5 my-4 border py-4 border-info border-5">
             <form action="query.php" method="post">
-                <h1 class="text-center fs-2 fw-bold bg-warning">
+                <h1 class="text-center fs-2 fw-bold bg-warning py-2">
                     User Login Form
                 </h1>
-                <input type="text" name="email" class="form-control border border-dark my-2" placeholder="Enter Your Email">
+                <input type="text" name="uname" class="form-control border border-dark my-2" placeholder="Enter Your Username">
                 <input type="text" name="pwd" class="form-control border border-dark my-2" placeholder="Enter Your Password">
-
                 <div class="fs-5 fw-bold row text-center">
                     <div class="col-6">
                         <a href="reg.php">Create Account</a>
@@ -40,11 +39,13 @@
                         <a href="forgot.php">Forgot Password?</a>
                     </div>
                 </div>
-
                 <div class="text-center my-2">
                     <input type="submit" value="Login" name="login" class="btn btn-success">
                 </div>
             </form>
+        </div>
+        <div class="col-2 m-auto text-center">
+            <img src="./static/logo/job.jpg" alt="Logo" height="100px" class="rounded border mx-5">            
         </div>
     </div>
 

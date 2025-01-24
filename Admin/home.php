@@ -1,7 +1,7 @@
 <?php 
     session_start();
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
-    if(!isset($_SESSION['uname'])){
+    if(!isset($_SESSION['admin_uname'])){
         header("Location:index.php");
     }
     $query = "SELECT * FROM `post`";
@@ -38,7 +38,7 @@
                 <th>Job Banner</th>
                 <th>Job Title</th>
                 <th>Job Description</th>
-                <th>CreatedAt</th>
+                <th>Job Location</th>
                 <th colspan="2">Operation</th>
             </tr>            
             <!-- Add Job Post Modal -->
@@ -79,10 +79,10 @@
               while ($data = mysqli_fetch_assoc($result)){
             ?>
             <tr class="border border-info">
-                <td><img src="<?php echo $data['banner']; ?>" alt="banner" height="100px"></td>
+                <td><img src="<?php echo $data['banner'] ?>" alt="" height="100px"></td>                
                 <td><?php echo $data['title']; ?></td>
                 <td><?php echo $data['description']; ?></td>
-                <td><?php echo $data['location']; ?></td>                    
+                <td><?php echo $data['location']; ?></td>                
                 <td><a href="edit_post.php?id=<?php echo $data['id']; ?>" class="fs-2 text-success"><i class="fa-solid fa-pen-to-square"></i></i></a></td>
                 <td>
                     <form action="query.php" method="post">

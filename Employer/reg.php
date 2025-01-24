@@ -24,11 +24,7 @@
                 <input type="text" name="uname" id="" class="form-control border border-dark my-2" placeholder="Enter Your Username">
                 <input type="text" name="pwd" id="" class="form-control border border-dark my-2" placeholder="Enter Your Password">
                 <input type="text" name="mobile" id="" class="form-control border border-dark my-2" placeholder="Enter Your Mobile">
-                <input type="email" name="email" id="" class="form-control border border-dark my-2" placeholder="Enter Your Email">                
-                <div class="form-floating">
-                <textarea class="form-control border border-dark my-2" name="adr" placeholder="Leave a Address here" id="floatingTextarea"></textarea>
-                    <label for="floatingTextarea">Address</label>
-                </div>                
+                <input type="email" name="email" id="" class="form-control border border-dark my-2" placeholder="Enter Your Email">                                
                 <div class="text-center my-2">
                     <input type="submit" class="btn btn-success" value="Create Account" name="reg">
                 </div>

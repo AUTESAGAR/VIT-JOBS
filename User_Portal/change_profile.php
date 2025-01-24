@@ -1,11 +1,11 @@
 <?php 
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
     session_start();
-    if(!$_SESSION['email']){
+    if(!$_SESSION['uname']){
         header("Location:login.php");
     }
-    $email = $_SESSION['email'];
-    $query = "SELECT * FROM `users` WHERE `email`='$email'";
+    $uname = $_SESSION['uname'];
+    $query = "SELECT * FROM `users` WHERE `uname`='$uname'";
     $run = mysqli_query($conn,$query);
     $data = mysqli_fetch_assoc($run);
 ?>

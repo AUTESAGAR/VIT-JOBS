@@ -1,10 +1,10 @@
 <?php 
     session_start();
     $conn = mysqli_connect("localhost","root","","vit_jobs") or die("Not Connect");
-    if(!isset($_SESSION['uname'])){
+    if(!isset($_SESSION['admin_uname'])){
         header("Location:index.php");
     }
-    $query = "SELECT * FROM `user_application`";
+    $query = "SELECT * FROM `cv`";
     $run = mysqli_query($conn,$query);
 ?>
 <!DOCTYPE html>
@@ -46,7 +46,7 @@
               }
               $p_p_p = 3;
               $start = ($c_p - 1) * $p_p_p;
-              $query = "SELECT * FROM `user_application` LIMIT $start, $p_p_p";
+              $query = "SELECT * FROM `cv` LIMIT $start, $p_p_p";
               $result = mysqli_query($conn,$query);
               if (mysqli_num_rows($result) > 0){
               while ($data = mysqli_fetch_assoc($result)){
