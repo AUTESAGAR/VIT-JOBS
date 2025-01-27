@@ -43,7 +43,7 @@
                 <a href="singlePage.php" class="text-dark text-decoration-none">
                     <img src="<?php echo $post_data['banner']; ?>" alt="banner" height="150px">
                 </a>
-            </div>
+            </div>            
             <div class="col-5">
                 <div class="fs-3 my-2"><b>Job Title : </b> <?php echo $post_data['title']; ?></div>
                 <div class="fs-5 my-2"><b>Job Description : </b> <?php $dt = substr($post_data['description'],0,60); echo $dt; ?></div>

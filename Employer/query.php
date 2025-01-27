@@ -103,9 +103,9 @@
             $mail->addAttachment('./static/PHP_Certificate.jpg', 'VIT_JOBS.jpg');
             $mail->isHTML(true);
             $mail->Subject = 'Welcome to VIT ( Inteview Call Letter )';
-            $mail->Body    = '<font size="5px">'.$employer_name.'</font> <br />
-                              <font size="5px">'.$employer_mobile.'</font> <br />
-                              <font size="5px">'.$employer_email.'</font> <br />';
+            $mail->Body    = '<font size="3px">'.$employer_name.'</font> <br />
+                              <font size="3px">'.$employer_mobile.'</font> <br />
+                              <font size="3px">'.$employer_email.'</font> <br />';
             $mail->send();
             echo "<script>window.location.replace('http://localhost/4PM%20PHP/VIT%20JOBS/Employer/home.php')</script>";
         }

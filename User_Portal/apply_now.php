@@ -36,27 +36,6 @@
   </div>
   
   <?php include_once("./components/footer.php"); ?>
-  <script>
-    let doj = document.getElementById("date_of_joining");
-    let dol = document.getElementById("date_of_leaving");    
-    let experienceYears=document.getElementById("experience_year");
-    doj.addEventListener("change", calculateExperience);
-    dol.addEventListener("change", calculateExperience);
-    function calculateExperience() {
-        let dojValue = new Date(doj.value);
-        let dolValue = new Date(dol.value);        
-        if (dojValue && dolValue && dolValue > dojValue) {            
-            let diffInMs = dolValue - dojValue;
-            let diffInDays = diffInMs / (1000 * 60 * 60 * 24);            
-            let years = Math.floor(diffInDays / 365.25);
-            let months = Math.floor((diffInDays % 365.25) / 30);
-            let days = Math.floor((diffInDays % 365.25) % 30);
-            experienceYears.value = `${years} Years, ${months} Months, ${days} Days`;
-        } else {
-            experienceYears.value = "";            
-        }
-    }
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

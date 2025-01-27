@@ -31,8 +31,34 @@
         </ul>
       </div>     
       <?php } else { ?>
+        <a class="btn btn-warning p-2 px-4 mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="enquiry.php">Enquiry Now</a>
+        <!-- Enquiry Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">             
+             <div class="modal-body">
+              <form action="query.php" method="post">
+                  <h1 class="text-center fs-2 fw-bold bg-info">
+                      Enquiry Form
+                  </h1>
+                  <input type="text" name="name" class="form-control border border-dark my-2" placeholder="Enter Your Name">
+                  <input type="text" name="email" class="form-control border border-dark my-2" placeholder="Enter Your Email">
+                  <input type="text" name="mobile" class="form-control border border-dark my-2" placeholder="Enter Your Mobile">
+                  <input type="text" name="subject" class="form-control border border-dark my-2" placeholder="Enter Your Subject">
+                  <div class="form-floating">
+                  <textarea class="form-control" name="message" placeholder="Leave a message here" id="floatingTextarea"></textarea>
+                  <label for="floatingTextarea">Write Message Here..</label>
+                </div>
+                  <div class="text-center my-2">
+                      <input type="submit" class="btn btn-warning" value="Send" name="enquiry_now">
+                  </div>
+              </form>
+              </div>              
+            </div>
+          </div>
+        </div>        
         <a class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="reg.php">Registration</a>
-        <a class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="login.php">Login</a>      
+        <a class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="login.php">Login</a>
       <?php } ?>
   </div>
 </nav>

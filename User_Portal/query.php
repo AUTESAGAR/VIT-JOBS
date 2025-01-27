@@ -11,6 +11,41 @@
     require '../PHPMailer/src/PHPMailer.php';
     require '../PHPMailer/src/SMTP.php';
 
+
+    if(isset($_POST["enquiry_now"])  && $_POST['name'] && $_POST['email'] && $_POST['mobile'] && $_POST['subject'] && $_POST['message'])
+    {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $mobile = $_POST['mobile'];
+        $subject = $_POST['subject'];
+        $message = $_POST['message'];
+        $query = "INSERT INTO `enquiry` VALUES('','$name','$email','$mobile','$subject','$message')" ;
+        $run = mysqli_query($conn,$query);
+        if($email){
+            $mail = new PHPMailer(true);
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'autesagar56@gmail.com';
+            $mail->Password   = 'rughsvbpmuqtyehh';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = 465;
+            $mail->setFrom('autesagar56@gmail.com', 'Admin');
+            $mail->addAddress($email, $name);
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body    = $message;
+            $mail->send();            
+            echo 'Message has been sent';
+            echo "<script>alert('Message Has Been Send')</script>";
+            header("refresh:1,url=reg.php");
+        }
+        // if($run){
+        //     header("Location:home.php");
+        // }
+    }
+
     if(isset($_POST["reg"]) && $_POST['name'] && $_POST['uname'] && $_POST['pwd'] && $_POST['email'] && $_POST['mobile'] && $_FILES['profile'])
     {
         $name = $_POST['name'];
@@ -58,7 +93,7 @@
         if($run){
             header("Location:home.php");
         }
-    }
+    }    
 
     else if(isset($_POST["change_profile"])){
         $id = $_POST['id'];
@@ -79,7 +114,6 @@
         $run = mysqli_query($conn,$query);
         $data = mysqli_fetch_assoc($run);
         if($email===$data['email']){
-            
             $text = "123456789009876543212";
             $random = str_shuffle($text);
             $otp = substr($random,0,6);
@@ -90,7 +124,7 @@
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
             $mail->Username   = 'autesagar56@gmail.com';
-            $mail->Password   = 'fuyqtyskngaojmao';
+            $mail->Password   = 'rughsvbpmuqtyehh';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port       = 465;
             $mail->setFrom('autesagar56@gmail.com', 'Admin');
@@ -145,7 +179,7 @@
             header("Location:Home.php");
         }
     }
-
+        
     else if(isset($_GET["logout"])){
         session_destroy();
         header("Location:login.php");

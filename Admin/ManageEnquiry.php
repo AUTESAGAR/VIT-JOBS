@@ -4,7 +4,7 @@
     if(!isset($_SESSION['admin_uname'])){
         header("Location:index.php");
     }
-    $query = "SELECT * FROM `cv`";
+    $query = "SELECT * FROM `enquiry`";
     $run = mysqli_query($conn,$query);
 ?>
 <!DOCTYPE html>
@@ -26,15 +26,16 @@
         <table class="border table table-hover" style="background:wheat">
             <tr>
                 <th colspan="8" class="text-center fs-1 fw-bold bg-info">
-                    Manage All Users Profile
+                    Users Enquiries
                 </th>                
             </tr>           
-            <tr class="border border-info">
-                <th>Job Banner</th>
-                <th>Job Title</th>
-                <th>Job Description</th>
-                <th>Accept</th>
-                <th colspan="2">Reject</th>
+            <tr class="border border-info">                
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th colspan="2">Reply</th>
             </tr>
 
             <?php
@@ -46,23 +47,44 @@
               }
               $p_p_p = 3;
               $start = ($c_p - 1) * $p_p_p;
-              $query = "SELECT * FROM `cv` LIMIT $start, $p_p_p";
+              $query = "SELECT * FROM `enquiry` LIMIT $start, $p_p_p";
               $result = mysqli_query($conn,$query);
               if (mysqli_num_rows($result) > 0){
               while ($data = mysqli_fetch_assoc($result)){
             ?>
             <tr class="border border-info">
                 <td><?php echo $data['name']; ?></td>
-                <td><a class="btn btn-success" href="<?php echo $data['cv']; ?>" download>Download CV</a></td>
-                <td><?php echo $data['apply_for']; ?></td>
-                <td><a href="query.php?id=<?php echo $data['id']; ?>" class="fs-2 text-success"><i class="fa-solid fa-pen-to-square"></i></i></a></td>
+                <td><?php echo $data['email']; ?></td>
+                <td><?php echo $data['mobile']; ?></td>
+                <td><?php echo $data['subject']; ?></td>
+                <td><?php echo $data['message']; ?></td>                
                 <td>
+                <a class="text-danger fs-3" data-bs-toggle="modal" data-bs-target="#exampleModal" class="nav-link active text-light fs-4 fw-bold" aria-current="page">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+                <!-- Enquiry Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">             
+                    <div class="modal-body">
                     <form action="query.php" method="post">
-                        <input type="hidden" name="delete" value="<?php echo $data['id']; ?>">
-                        <button type="submit" class="fs-2 text-danger bg-wheat" style="border:2px solid wheat;background:wheat;">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
+                        <h1 class="text-center fs-1 fw-bold bg-info">
+                            Reply
+                        </h1>
+                        <input type="text" value="<?php echo $data['email']; ?>" name="email" class="form-control border border-dark my-2" placeholder="Enter Your Subject">
+                        <input type="text" value="<?php echo $data['subject']; ?>" name="subject" class="form-control border border-dark my-2" placeholder="Enter Your Subject">
+                        <div class="form-floating">
+                        <textarea class="form-control" name="message" placeholder="Leave a message here" id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea">Write Message Here..</label>
+                        </div>
+                        <div class="text-center my-2">
+                            <input type="submit" class="btn btn-warning" value="Send" name="reply">
+                        </div>
                     </form>
+                    </div>              
+                    </div>
+                </div>
+                </div>  
                 </td>
             </tr>
             <?php } } else {  ?> 

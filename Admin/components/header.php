@@ -13,6 +13,9 @@
       <div class="navbar-nav">
         <a class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="ManageApplication.php">Resume</a>
       </div>
+      <div class="navbar-nav">
+        <a class="nav-link active text-light fs-4 fw-bold" aria-current="page" href="ManageEnquiry.php">Enquiries</a>
+      </div>
     </div>
     <?php if($_SESSION['admin_uname']) { ?>
       <div class="dropdown px-3">
